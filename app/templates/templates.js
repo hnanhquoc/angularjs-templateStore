@@ -13,10 +13,18 @@ angular.module('templateStore.templates', ['ngRoute'])
 	
 }])
 
-.controller('TemplatesCtrl', ['$scope', function($scope){
-	
+.controller('TemplatesCtrl', ['$scope', '$http', function($scope, $http){
+	$http.get('json/templates.json').success(function(response){
+		$scope.templates = response;
+	});
 }])
 
-.controller('TemplateDetailCtrl', ['$scope', function($scope){
-	
+.controller('TemplateDetailsCtrl', ['$scope', '$routeParams', '$http', '$filter', function($scope, $routeParams, $http, $filter){
+	var templateID = $routeParams.templateID;
+	$http.get('json/templates.json').success(function(response){
+		$scope.template = $filter('filter')(response, function(d){
+			return d.id == templateID;
+		})[0];
+		$scope.mainImage = $scope.template.images[0].name;
+	});
 }])
