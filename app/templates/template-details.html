@@ -1,8 +1,15 @@
 <div>
-        <a href="#!/templates">Go Back</a>
+        <a href="#!/templates" class="btn btn-info">Go Back</a>
         <br><br>
         <div class="col-md-4">
                 <img class="img-full" ng-src="img/{{mainImage}}">
+                <div class="row">
+                        <div ng-repeat="image in template.images | limitTo:4">
+                                <div class="col-md-3">
+                                        <img class="img-full" ng-src="img/{{image.name}}" ng-click="setImage(image);">
+                                </div>
+                        </div>
+                </div>
         </div>
         <div class="col-md-8">
                 <h3>{{template.name}}</h3>
